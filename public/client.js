@@ -6,7 +6,7 @@ function setup() {
     socket.connect();
 
     socket.on('connect', function(){
-	    console.log('on connection');
+            showMessage('Connected');
 	});
 
     socket.on('message', function(message){
@@ -14,13 +14,19 @@ function setup() {
 	});
 
     socket.on('disconnect', function(){
-            showMessage('You are offline');
+            showMessage('You are disconnect');
 	});
 
-    $('#chat_button').click(function(){
-        var chat_text = $('#chat_text');
-        socket.send(chat_text.val());
-        chat_text.val('');
+    $('#chat_form').submit(function(event){
+
+        var target = event.target;
+
+        socket.send(target.chat_text.value);
+        target.chat_text.value = '';
+
+        target.chat_text.focus();
+
+        return false;
     });
 }
 

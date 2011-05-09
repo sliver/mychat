@@ -16,9 +16,12 @@ socket.on('connection', function(client) {
 
     sessions[client.sessionId] = client;
 
-    client.send( 'You are online. Your session id is ' + client.sessionId );
-
     for (var i in sessions) {
+        if (i == client.sessionId) {
+            client.send( 'Your session id is ' + client.sessionId );
+            continue;
+        }
+
         sessions[i].send(client.sessionId + ' connect');
     }
 
