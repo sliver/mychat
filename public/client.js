@@ -1,23 +1,23 @@
-var socket = new io.Socket();
 
 function setup() {
 
     showMessage('Connecting...');
-    socket.connect();
 
-    socket.on('connect', function(){
+    var socket = io.connect();
+
+    socket.on('connect', function() {
             showMessage('Connected');
-	});
+        });
 
-    socket.on('message', function(message){
+    socket.on('message', function(message) {
             showMessage(message);
-	});
+        });
 
-    socket.on('disconnect', function(){
+    socket.on('disconnect', function() {
             showMessage('You are disconnect');
-	});
+        });
 
-    $('#chat_form').submit(function(event){
+    $('#chat_form').submit(function(event) {
 
         var target = event.target;
 
@@ -27,7 +27,7 @@ function setup() {
         target.chat_text.focus();
 
         return false;
-    });
+        });
 }
 
 
@@ -40,3 +40,4 @@ function showMessage(message) {
 
     $('#chat_board').append('<div>' + message + '</div>');
 }
+
